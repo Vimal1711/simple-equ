@@ -38,6 +38,14 @@ def calculate_radius(diameter):
 def circumference(radius):
     return 2 * constants.pi * radius
 
+def distance(a: tuple, b: tuple):
+    if all(isinstance(x, tuple) for x in (a, b)):
+        formula = ((a[0] - a[1]) ** 2) + ((b[0] - b[1]) ** 2)
+        result = math.sqrt(formula)
+        return result
+    else:
+        raise TypeError("Must input tuples as coordinates for points")
+
 #Attempt to calculate sin using the Taylor Series expansion
 #sin(x) = x - x^3/3! + x^5/5! - x^7/7! + ...
 def sin(angle):
@@ -79,5 +87,3 @@ def cosin(angle):
 
 def tan(angle):
     return sin(angle) / cosin(angle)
-
-print(tan(30))
