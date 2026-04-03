@@ -36,7 +36,7 @@ def sqrt(number):
 def basic_quadratic(a, b, c):
     
     d = (b**2) - (4*a*c)
-    sqrt_d = d**0.5
+    sqrt_d = algebra.sqrt(d)
 
     root1 = (-b + sqrt_d) / (2*a)
     root2 = (-b - sqrt_d) / (2*a)
