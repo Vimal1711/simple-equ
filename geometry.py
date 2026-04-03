@@ -1,10 +1,9 @@
-import math
 import constants
 import algebra
 
 def pythagoras(a, b):
     result = a*a + b*b
-    hypotenuse = math.sqrt(result)
+    hypotenuse = algebra.sqrt(result)
     return hypotenuse
 
 def square_area(a):
@@ -26,7 +25,7 @@ def triangle_area(base, height):
     return (base * height) / 2
 
 def pyramid_surface(length, width, height):
-    result = length * width + length * math.sqrt((width/2) * (width/2) + height * height) + width * math.sqrt((length/2) * (length/2) + height*height)
+    result = length * width + length * algebra.sqrt((width/2) * (width/2) + height * height) + width * algebra.sqrt((length/2) * (length/2) + height*height)
     return result
 
 def pyramid_volume(height, length, width):
@@ -45,11 +44,11 @@ def distance(a: tuple, b: tuple):
     if all(isinstance(x, tuple) for x in (a, b)):
         if len(a) == 2 and len(b) == 2:    
             formula = ((a[0] - b[0]) ** 2) + ((a[1] - b[1]) ** 2)
-            result = math.sqrt(formula)
+            result = algebra.sqrt(formula)
             return result
         elif len(a) == 3 and len(b) == 3:
             formula = ((a[0] - b[0]) ** 2) + ((a[1] - b[1]) ** 2) + ((a[2] - b[2]) ** 2)
-            result = math.sqrt(formula)
+            result = algebra.sqrt(formula)
             return result   
         raise ValueError("Inputs must be either 2d or 3d coordinates")
     raise TypeError("Must input tuples or lists as coordinates for points")
@@ -88,9 +87,9 @@ def cosin(angle):
     angle = angle % 360
     #Sign is dependant on tshe angle
     if angle >= 0 and angle < 90 or angle >= 270 and angle <= 360:
-        cosine = math.sqrt(1- sin(angle) * sin(angle))
+        cosine = algebra.sqrt(1- sin(angle) * sin(angle))
     elif angle >= 90 and angle < 180 or angle >= 180 and angle < 270:
-        cosine = -1 * math.sqrt(1- sin(angle) * sin(angle))
+        cosine = -1 * algebra.sqrt(1- sin(angle) * sin(angle))
     return cosine
 
 def tan(angle):
