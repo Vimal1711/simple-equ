@@ -1,5 +1,5 @@
-import constants
 import simple_equ.math.algebra as algebra
+import simple_equ.constants.constants as constants
 
 def pythagoras(a: int | float, b: int | float) -> float:
     result = a*a + b*b
@@ -37,9 +37,9 @@ def calculate_radius(diameter: int | float):
 def circumference(radius: int | float):
     return 2 * constants.pi * radius
 
-def distance(a: tuple | list, b: tuple | list) -> float:
+def distance(a: tuple | list | list, b: tuple | list | list) -> float:
     # Convert any lists to tuples
-    a, b = [tuple(p) if isinstance(p, list) else p for p in (a, b)]
+    a, b = tuple(a), tuple(b)
     
     if not all(isinstance(x, tuple) for x in (a, b)):
         raise TypeError("Must input tuples or lists as coordinates for points")
@@ -65,23 +65,6 @@ def sin(angle: int | float):
         sign = (-1) ** i
         exponent = 2 * i + 1
         result += sign * (radians ** exponent) / algebra.factorial(exponent)
-    return result
-
-def sin(angle: int | float):
-    # Reduce angle to [-pi, pi]
-    x = (angle % 360) * constants.pi / 180
-    if x > constants.pi:
-        x -= 2 * constants.pi
-    
-    term = x  # first term
-    result = x
-    i = 1
-    while True:
-        term *= -x*x / ((2*i)*(2*i+1))
-        if abs(term) < 1e-15:
-            break
-        result += term
-        i += 1
     return result
 
 def cosin(angle: int | float):
