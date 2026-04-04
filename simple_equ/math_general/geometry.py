@@ -1,5 +1,5 @@
-import simple_equ.math_general.algebra as algebra
-import constants.constants as constants
+import algebra
+import constants
 
 def pythagoras(a: int | float, b: int | float) -> float:
     result = a*a + b*b
@@ -81,3 +81,5 @@ def tan(angle: int | float):
 
 def sphere_surface(radius: int | float):
     return 4 * constants.pi * radius**2
+
+print(circle_area(4))
