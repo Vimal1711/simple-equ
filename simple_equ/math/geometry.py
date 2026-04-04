@@ -37,7 +37,7 @@ def calculate_radius(diameter):
 def circumference(radius):
     return 2 * constants.pi * radius
 
-def distance(a: tuple | list, b: tuple | list) -> int:
+def distance(a: tuple | list, b: tuple | list) -> float:
     # Convert any lists to tuples
     a, b = [tuple(p) if isinstance(p, list) else p for p in (a, b)]
     
