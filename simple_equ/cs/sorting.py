@@ -16,6 +16,7 @@ def insertion_sort(lst: list[int|float]):
         lst[j + 1] = key
     return lst
 
+#Note: Returns a new list 
 def merge_sort(lst: list[int|float]):
     if len(lst) <= 1:
         return lst
