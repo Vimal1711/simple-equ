@@ -1,3 +1,5 @@
+import math
+
 def power(base: int | float, exponent: int | float) -> int | float:
     return base ** exponent
 
@@ -44,6 +46,44 @@ def basic_quadratic(a: int | float, b: int | float, c: int | float):
     root1 = (-b + sqrt_d) / (2*a)
     root2 = (-b - sqrt_d) / (2*a)
     return root1, root2
+
+def basic_qubic(a: int | float, b: int | float, c: int | float, d: int | float):
+    q = (2 * b**3 - 9*a*b*c + 27*a*a*d) / (27 * a**3)
+    p = (3 * a * c - (b*b)) / (3 * (a*a))
+
+    delta = (q/2)**2 + (p/3)**3
+
+    roots = []
+
+    if delta >= 0:
+        sqrt_delta = sqrt(delta)
+        t1 = cbrt(-q/2 + sqrt_delta)
+        t2 = cbrt(-q/2 - sqrt_delta)
+        t = t1 + t2
+
+        #Real root 
+        x1 = t - (b / (3*a))
+        roots.append(x1)
+
+        # 2 Complex roots using cube roots of unity
+        omega = complex(-0.5, sqrt(3)/2)
+        x2 = t1*omega + t2*omega.conjugate() - (b / (3*a))
+        x3 = t1*omega.conjugate() + t2*omega - (b / (3*a))
+        roots.extend([x2, x3])
+
+    else: 
+        #Three real square roots (trig solution)
+        r = sqrt(-p/3)
+        phi = math.acos(-q/(2*r**3))
+        #All real
+        x1 = 2*r*math.cos(phi/3) - b/(3*a)
+        x2 = 2*r*math.cos((phi + 2*math.pi)/3) - b/(3*a)
+        x3 = 2*r*math.cos((phi + 4*math.pi)/3) - b/(3*a)
+        roots.extend([x1, x2, x3])
+
+    #It just removes the artifacts from floating point innacuracies here 
+    roots = [round(x, 10) for x in roots]
+    return roots
 
 def basic_linear(a: int | float, b: int | float):
     x = -b/a
