@@ -1,3 +1,6 @@
+import math
+import random
+
 def average(lst: list | tuple) -> int | float:
     # Converts any numbers in string form to ints and checks for invalid inputs
     try:
@@ -49,3 +52,7 @@ def linear_regression(x: list[float] | list[int] , y: list[float] | list[int]) -
     intercept = (sum_y - slope * sum_x) / n
 
     return slope, intercept
+
+def dot(x, w):
+    return sum(x_i * w_i for x_i, w_i in zip(x, w))
+
