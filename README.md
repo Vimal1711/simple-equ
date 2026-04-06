@@ -13,6 +13,11 @@ functionality. But, let us look on how that would realistically look like:
 
 <img width="1233" height="185" alt="linearreg" src="https://github.com/user-attachments/assets/a09cc933-0e2b-493d-bbef-894115112f31" />
 
+You just import the field of your liking, and then boom!
+
+## Sturcture
+
+The library is structured into fields. These fields have their own folder aka modules. However, a field can have multiple subsets.  
 
 ## Installing
 ```pip install simple-equ```
