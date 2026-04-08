@@ -1,12 +1,10 @@
 from pathlib import Path
-import geometry
-import algebra
 import sys
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
-import algebra
-import constants
+import simple_equ.math_general.algebra as algebra
+import simple_equ.math_general.constants as constants
 
 def pythagoras(a: int | float, b: int | float) -> float:
     """[Summary]: Return the hypotenuse of a right triangle.
