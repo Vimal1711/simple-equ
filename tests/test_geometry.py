@@ -436,3 +436,58 @@ def test_slope_invalid_dim():
     """
     with pytest.raises(ValueError):
         geo.slope((1, 2, 3), (4, 5, 6))
+
+@pytest.mark.parametrize(
+    "x,expected",
+    [
+        (0, 0.0),                       # arctan(0) = 0
+        (1, constants.PI / 4),          # arctan(1) = π/4
+        (-1, -constants.PI / 4),        # arctan(-1) = -π/4
+        (1 / math.sqrt(3), constants.PI / 6),  # arctan(1/√3) = π/6
+        (10, math.atan(10)),            # large positive number
+        (-10, math.atan(-10)),          # large negative number
+    ],
+)
+def test_arctan(x, expected):
+    """[Summary]: Verify that arctan returns the expected angle in radians.
+
+    [Description]: Tests the custom arctan() function for multiple inputs, 
+    including zero, positive, negative, fractional, and large numbers.
+    The returned angle is compared against expected values using a floating-point
+    tolerance.
+
+    [Usage]: Typical usage example:
+
+        pytest tests/test_geometry.py -k test_arctan
+    """
+    assert geo.arctan(x) == pytest.approx(expected, rel=1e-9)
+
+
+def test_arctan_near_pi_over_2():
+    """[Summary]: Verify that arctan approaches π/2 for large positive inputs.
+
+    [Description]: Checks that the function returns a value close to π/2 when
+    the input is very large, validating proper handling of limits.
+
+    [Usage]: Typical usage example:
+
+        pytest tests/test_geometry.py -k test_arctan_near_pi_over_2
+    """
+    x = 1e6
+    result = geo.arctan(x)
+    assert result == pytest.approx(constants.PI / 2, rel=1e-6)
+
+
+def test_arctan_near_minus_pi_over_2():
+    """[Summary]: Verify that arctan approaches -π/2 for large negative inputs.
+
+    [Description]: Checks that the function returns a value close to -π/2 when
+    the input is very large and negative, validating proper handling of limits.
+
+    [Usage]: Typical usage example:
+
+        pytest tests/test_geometry.py -k test_arctan_near_minus_pi_over_2
+    """
+    x = -1e6
+    result = geo.arctan(x)
+    assert result == pytest.approx(-constants.PI / 2, rel=1e-6)

@@ -273,6 +273,24 @@ def tan(angle: int | float):
     """
     return sin(angle) / cosin(angle)
 
+def arctan(x: float | int, iter=20): 
+    """
+    [Summary]: Tests and explanation for the arctan() function.
+
+    [Description]:
+    This file contains notes and explanations for the custom `arctan()` function,
+    which computes the inverse tangent (arctangent) of a number or ratio. 
+    The function returns the angle (in radians) whose tangent is the given input.
+    [Usage]:
+    - Call arctan(x) with a single float input to get the angle in radians.
+    - Can be used to convert a tangent ratio (opposite/adjacent) to an angle in triangles.
+    - Can be extended to degrees by multiplying result by 180/π.
+    """
+    theta = 0.0 
+    for _ in range(iter):
+        theta = theta - (tan(theta) - x) / (1 + tan(theta)**2)
+    return theta
+
 
 def sphere_surface(radius: int | float):
     """[Summary]: Return the surface area of a sphere.
