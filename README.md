@@ -79,8 +79,6 @@ import simple_equ.economics.statistics as se
 se.linear_regression([3,4,6],[4,6,7])
 ```
 
-<img width="1233" height="185" alt="linearreg" src="https://github.com/user-attachments/assets/a09cc933-0e2b-493d-bbef-894115112f31" />
-
 You just import the field of your liking, and then boom!
 
 ## Structure
