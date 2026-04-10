@@ -4,7 +4,7 @@ import sys
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT))
-from simple_equ.cs.locating import greatest_algorithm, lowest_algorithm, binary_search, interpolation_search, exponential_search
+from simple_equ.cs.locating import greatest_algorithm, lowest_algorithm, jump_search, binary_search, interpolation_search, exponential_search
 from simple_equ.cs.sorting import bubble_sort, insertion_sort, merge_sort, heap_sort, heapify
 
 
@@ -553,3 +553,75 @@ def test_heap_sort_does_not_modify_input():
     arr = [4, 1, 3]
     _ = heap_sort(arr)
     assert arr == [4, 1, 3]
+
+def test_jump_search_empty_list():
+    """[Summary]: Verify that jump_search handles an empty list.
+
+    [Description]: Confirms the function returns -1 when invoked on an empty
+    sequence.
+
+    [Usage]: Typical usage example:
+
+        pytest tests/test_algorithms.py -k test_jump_search_empty_list
+    """
+    assert jump_search([], 10) == -1
+
+
+def test_jump_search_single_element():
+    """[Summary]: Verify that jump_search handles a single-element list.
+
+    [Description]: Confirms correct behavior when the sequence contains only
+    one element, for both matching and non-matching targets.
+
+    [Usage]: Typical usage example:
+
+        pytest tests/test_algorithms.py -k test_jump_search_single_element
+    """
+    arr = [5]
+    assert jump_search(arr, 5) == 0
+    assert jump_search(arr, 1) == -1
+
+
+def test_jump_search_multiple_elements():
+    """[Summary]: Verify that jump_search correctly finds elements in a list.
+
+    [Description]: Confirms the function returns the correct index for targets
+    located in different positions within a sorted list.
+
+    [Usage]: Typical usage example:
+
+        pytest tests/test_algorithms.py -k test_jump_search_multiple_elements
+    """
+    arr = [1, 3, 5, 7, 9, 11, 13]
+    assert jump_search(arr, 1) == 0
+    assert jump_search(arr, 7) == 3
+    assert jump_search(arr, 13) == 6
+
+
+def test_jump_search_not_found():
+    """[Summary]: Verify that jump_search returns -1 when target is absent.
+
+    [Description]: Confirms the function correctly returns -1 when the target
+    value does not exist in the list.
+
+    [Usage]: Typical usage example:
+
+        pytest tests/test_algorithms.py -k test_jump_search_not_found
+    """
+    arr = [2, 4, 6, 8, 10]
+    assert jump_search(arr, 5) == -1
+
+
+def test_jump_search_first_and_last():
+    """[Summary]: Verify that jump_search handles boundary elements.
+
+    [Description]: Confirms correct behavior when the target is at the beginning
+    or end of the list.
+
+    [Usage]: Typical usage example:
+
+        pytest tests/test_algorithms.py -k test_jump_search_first_and_last
+    """
+    arr = [1, 2, 3, 4, 5]
+    assert jump_search(arr, 1) == 0
+    assert jump_search(arr, 5) == 4

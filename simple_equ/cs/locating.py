@@ -1,3 +1,5 @@
+from simple_equ.algebra import algebra
+
 def greatest_algorithm(arr: list[int] | tuple[int]) -> int:
     """[Summary]: Return the greatest element in a list or tuple.
 
@@ -131,4 +133,33 @@ def exponential_search(arr, target):
 
     resulting_arr = arr[left:right]
     return binary_search(resulting_arr, target)
+
+def jump_search(arr, target): 
+    """[Summary]: Search for a target value in a sorted list using jump search.
+
+    [Description]: Advances through the list in fixed-size steps (square root of
+    the list length) to find a block where the target may exist. Once the block
+    is identified, a linear search is performed within that range.
+
+    [Usage]: Typical usage example:
+
+        index = jump_search([1, 3, 5, 7, 9], 7)
+        print(index)
+    """
+    n = len(arr)
+    step = int(algebra.sqrt(n))
+    prev = 0
+
+    while prev < n and arr[min(step, n) - 1] < target:
+        prev = step 
+        step += int(algebra.sqrt(n))
+        if prev >= n:
+            return -1 
+    
+    for i in range(prev, min(step, n)):
+        if arr[i] == target:
+            return i
+
+    return -1
+
 
