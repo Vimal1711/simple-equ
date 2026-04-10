@@ -3,10 +3,9 @@ import math
 from pathlib import Path
 import sys
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT))
-from simple_equ.math_general import geometry as geo
-from simple_equ.math_general import constants
+from simple_equ import geometry as geo
 
 
 @pytest.mark.parametrize(
@@ -27,7 +26,7 @@ def test_pythagoras(a, b, expected):
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_pythagoras
+        pytest tests/geometry/test_geometry.py -k test_pythagoras
     """
     assert geo.pythagoras(a, b) == pytest.approx(expected, rel=1e-9)
 
@@ -41,7 +40,7 @@ def test_pythagoras_negative():
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_pythagoras_negative
+        pytest tests/geometry/test_geometry.py -k test_pythagoras_negative
     """
     assert geo.pythagoras(-3, 4) == pytest.approx(5.0)
 
@@ -62,7 +61,7 @@ def test_square_area(a, expected):
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_square_area
+        pytest tests/geometry/test_geometry.py -k test_square_area
     """
     assert geo.square_area(a) == expected
 
@@ -82,7 +81,7 @@ def test_cube_area(a, expected):
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_cube_area
+        pytest tests/geometry/test_geometry.py -k test_cube_area
     """
     assert geo.cube_area(a) == expected
 
@@ -102,7 +101,7 @@ def test_rectangle_area(a, b, expected):
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_rectangle_area
+        pytest tests/geometry/test_geometry.py -k test_rectangle_area
     """
     assert geo.rectangle_area(a, b) == expected
 
@@ -110,9 +109,9 @@ def test_rectangle_area(a, b, expected):
 @pytest.mark.parametrize(
     "radius,expected",
     [
-        (1, constants.pi),
+        (1, geo.pi),
         (0, 0.0),
-        (5, 25 * constants.pi),
+        (5, 25 * geo.pi),
     ],
 )
 def test_circle_area(radius, expected):
@@ -123,7 +122,7 @@ def test_circle_area(radius, expected):
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_circle_area
+        pytest tests/geometry/test_geometry.py -k test_circle_area
     """
     assert geo.circle_area(radius) == expected
 
@@ -143,7 +142,7 @@ def test_trapezoid_area(b1, b2, h, expected):
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_trapezoid_area
+        pytest tests/geometry/test_geometry.py -k test_trapezoid_area
     """
     assert geo.trapezoid_area(b1, b2, h) == expected
 
@@ -163,7 +162,7 @@ def test_triangle_area(base, h, expected):
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_triangle_area
+        pytest tests/geometry/test_geometry.py -k test_triangle_area
     """
     assert geo.triangle_area(base, h) == expected
 
@@ -182,7 +181,7 @@ def test_pyramid_surface(l, w, h, expected):
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_pyramid_surface
+        pytest tests/geometry/test_geometry.py -k test_pyramid_surface
     """
     assert geo.pyramid_surface(l, w, h) == expected
 
@@ -202,7 +201,7 @@ def test_pyramid_volume(h, l, w, expected):
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_pyramid_volume
+        pytest tests/geometry/test_geometry.py -k test_pyramid_volume
     """
     assert geo.pyramid_volume(h, l, w) == expected
 
@@ -222,7 +221,7 @@ def test_calculate_radius(d, expected):
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_calculate_radius
+        pytest tests/geometry/test_geometry.py -k test_calculate_radius
     """
     assert geo.calculate_radius(d) == expected
 
@@ -230,7 +229,7 @@ def test_calculate_radius(d, expected):
 @pytest.mark.parametrize(
     "r,expected",
     [
-        (1, 2 * constants.pi),
+        (1, 2 * geo.pi),
         (0, 0.0),
     ],
 )
@@ -242,7 +241,7 @@ def test_circumference(r, expected):
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_circumference
+        pytest tests/geometry/test_geometry.py -k test_circumference
     """
     assert geo.circumference(r) == expected
 
@@ -264,7 +263,7 @@ def test_distance(p1, p2, expected):
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_distance
+        pytest tests/geometry/test_geometry.py -k test_distance
     """
     assert geo.distance(p1, p2) == pytest.approx(expected, rel=1e-9)
 
@@ -277,7 +276,7 @@ def test_distance_invalid_type():
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_distance_invalid_type
+        pytest tests/geometry/test_geometry.py -k test_distance_invalid_type
     """
     with pytest.raises(ValueError):
         geo.distance([1, 2], "invalid")
@@ -291,7 +290,7 @@ def test_distance_invalid_dim():
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_distance_invalid_dim
+        pytest tests/geometry/test_geometry.py -k test_distance_invalid_dim
     """
     with pytest.raises(ValueError):
         geo.distance((1, 2, 3, 4), (1, 2, 3, 4))
@@ -312,7 +311,7 @@ def test_sin(angle_deg, expected):
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_sin
+        pytest tests/geometry/test_geometry.py -k test_sin
     """
     assert geo.sin(angle_deg) == expected
 
@@ -332,7 +331,7 @@ def test_cosin(angle_deg, expected):
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_cosin
+        pytest tests/geometry/test_geometry.py -k test_cosin
     """
     assert geo.cosin(angle_deg) == expected
 
@@ -352,7 +351,7 @@ def test_tan(angle_deg, expected):
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_tan
+        pytest tests/geometry/test_geometry.py -k test_tan
     """
     assert geo.tan(angle_deg) == expected
 
@@ -365,7 +364,7 @@ def test_tan_90():
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_tan_90
+        pytest tests/geometry/test_geometry.py -k test_tan_90
     """
     with pytest.raises(ZeroDivisionError):
         geo.tan(90)
@@ -374,7 +373,7 @@ def test_tan_90():
 @pytest.mark.parametrize(
     "r,expected",
     [
-        (1, 4 * constants.pi),
+        (1, 4 * geo.pi),
         (0, 0.0),
     ],
 )
@@ -386,7 +385,7 @@ def test_sphere_surface(r, expected):
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_sphere_surface
+        pytest tests/geometry/test_geometry.py -k test_sphere_surface
     """
     assert geo.sphere_surface(r) == expected
 
@@ -405,7 +404,7 @@ def test_slope(p1, p2, expected):
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_slope
+        pytest tests/geometry/test_geometry.py -k test_slope
     """
     assert geo.slope(p1, p2) == expected
 
@@ -418,7 +417,7 @@ def test_slope_vertical():
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_slope_vertical
+        pytest tests/geometry/test_geometry.py -k test_slope_vertical
     """
     with pytest.raises(ZeroDivisionError):
         geo.slope((1, 1), (1, 5))
@@ -432,7 +431,7 @@ def test_slope_invalid_dim():
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_slope_invalid_dim
+        pytest tests/geometry/test_geometry.py -k test_slope_invalid_dim
     """
     with pytest.raises(ValueError):
         geo.slope((1, 2, 3), (4, 5, 6))
@@ -441,9 +440,9 @@ def test_slope_invalid_dim():
     "x,expected",
     [
         (0, 0.0),                       # arctan(0) = 0
-        (1, constants.PI / 4),          # arctan(1) = π/4
-        (-1, -constants.PI / 4),        # arctan(-1) = -π/4
-        (1 / math.sqrt(3), constants.PI / 6),  # arctan(1/√3) = π/6
+        (1, geo.PI / 4),          # arctan(1) = π/4
+        (-1, -geo.PI / 4),        # arctan(-1) = -π/4
+        (1 / math.sqrt(3), geo.PI / 6),  # arctan(1/√3) = π/6
         (10, math.atan(10)),            # large positive number
         (-10, math.atan(-10)),          # large negative number
     ],
@@ -458,7 +457,7 @@ def test_arctan(x, expected):
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_arctan
+        pytest tests/geometry/test_geometry.py -k test_arctan
     """
     assert geo.arctan(x) == pytest.approx(expected, rel=1e-9)
 
@@ -471,11 +470,11 @@ def test_arctan_near_pi_over_2():
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_arctan_near_pi_over_2
+        pytest tests/geometry/test_geometry.py -k test_arctan_near_pi_over_2
     """
     x = 1e6
     result = geo.arctan(x)
-    assert result == pytest.approx(constants.PI / 2, rel=1e-6)
+    assert result == pytest.approx(geo.PI / 2, rel=1e-6)
 
 
 def test_arctan_near_minus_pi_over_2():
@@ -486,8 +485,8 @@ def test_arctan_near_minus_pi_over_2():
 
     [Usage]: Typical usage example:
 
-        pytest tests/test_geometry.py -k test_arctan_near_minus_pi_over_2
+        pytest tests/geometry/test_geometry.py -k test_arctan_near_minus_pi_over_2
     """
     x = -1e6
     result = geo.arctan(x)
-    assert result == pytest.approx(-constants.PI / 2, rel=1e-6)
+    assert result == pytest.approx(-geo.PI / 2, rel=1e-6)
