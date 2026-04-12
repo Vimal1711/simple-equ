@@ -6,10 +6,12 @@ permissions:
   contents: write
 jobs:
   release:
-    name: Bump version → Build → Publish
+    name: Bump version → Tag → Push
     runs-on: ubuntu-latest
     # ✅ Skip if commit was made by the bot (prevents infinite loop)
     if: github.event.head_commit.author.name != 'github-actions[bot]'
+    outputs:
+      tag: ${{ steps.next.outputs.tag }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -35,6 +37,7 @@ jobs:
           PATCH=$((PATCH + 1))
           NEXT="$MAJOR.$MINOR.$PATCH"
           echo "next=$NEXT" >> $GITHUB_OUTPUT
+          echo "tag=v$NEXT" >> $GITHUB_OUTPUT
       - name: Update pyproject.toml
         run: |
           sed -i "s/version = \"${{ steps.ver.outputs.current }}\"/version = \"${{ steps.next.outputs.next }}\"/" pyproject.toml
@@ -43,8 +46,15 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add pyproject.toml
-          # ✅ [skip ci] as belt-and-suspenders backup
           git commit -m "chore: bump version ${{ steps.ver.outputs.current }} → ${{ steps.next.outputs.next }} [skip ci]"
           git tag "v${{ steps.next.outputs.next }}"
           git push origin main
           git push origin "v${{ steps.next.outputs.next }}"
+
+  # ✅ Directly call publish.yml instead of relying on tag push to trigger it
+  publish:
+    needs: release
+    uses: ./.github/workflows/publish.yml
+    with:
+      tag: ${{ needs.release.outputs.tag }}
+    secrets: inherit
